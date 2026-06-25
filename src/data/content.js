@@ -36,16 +36,23 @@ export const values = [
 export const serviceCategories = [
   {
     id: 'steel',
-    title: 'Rebar & Steel / Precast Detailing',
+    title: 'Rebar, Steel and Precast Detailing',
     icon: '⬡',
     color: '#FF8C00',
+    overview:
+      'We offer a wide range of rebar sizes, diameters, and strength levels to suit different construction needs. Our expertise in breaking down rebar elements into precise bending shapes, lengths, steel grades, and diameters ensures efficient material use and minimizes construction errors.',
+    servicesHeading: 'The cost management also covers services such as:',
     services: [
-      { name: 'Rebar Detailing & BBS', description: 'Complete bar bending schedules with 2D/3D rebar models and fabrication drawings.' },
-      { name: 'Structural Steel Detailing', description: 'Connection design support, shop drawings, and erection plans for steel structures.' },
-      { name: 'Precast Concrete Detailing', description: 'Panel, beam, and column detailing with lifting and connection details.' },
-      { name: 'Post-Tensioning Detailing', description: 'PT tendon layouts, stressing sequences, and anchor detail documentation.' },
-      { name: 'Miscellaneous Metals', description: 'Stairs, handrails, embeds, and specialty metal fabrication drawings.' },
-      { name: 'Field Fix & Revision Support', description: 'Rapid turnaround on RFIs, change orders, and site coordination.' },
+      { name: 'Rebar Concrete Shop Drawings', description: 'Fabrication-ready shop drawings for concrete reinforcement per project standards.' },
+      { name: 'Bar Bending Schedules', description: 'Accurate BBS with bar marks, shapes, lengths, and quantities for efficient placement.' },
+      { name: 'Concrete Masonry Detailing', description: 'Detailed masonry unit layouts, reinforcement, and connection documentation.' },
+      { name: 'Rebar Placement Drawings', description: 'Clear placement plans showing bar locations, spacing, and installation sequences.' },
+      { name: 'As Built Drawings Services', description: 'Field-verified record drawings reflecting actual constructed conditions.' },
+      { name: 'Retaining Wall Detailing', description: 'Complete rebar and structural detailing for retaining and earth-retention systems.' },
+      { name: 'High Quality Detailing Suiting', description: 'Precision detailing aligned with project specifications and fabricator standards.' },
+      { name: 'Rebar Detailing, Drawing & Estimating', description: 'Integrated detailing, drawing production, and quantity estimating services.' },
+      { name: '3D Modeling Of Rebar Using Tekla Structures', description: 'Intelligent 3D rebar models with clash detection and fabrication output.' },
+      { name: 'Quality Take-Offs Including Rebar & Concrete', description: 'Reliable material take-offs for rebar and concrete to support bidding and procurement.' },
     ],
   },
   {

@@ -83,6 +83,21 @@
   word-wrap: break-word;
 }
 
+.services__overview {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0.5rem 0 0.75rem;
+  max-width: 720px;
+}
+
+.services__services-heading {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 0.35rem;
+}
+
 .services__hint {
   font-size: 0.85rem;
   color: var(--text-muted);

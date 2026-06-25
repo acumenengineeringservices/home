@@ -57,6 +57,12 @@ export default function Services() {
             </div>
             <div className="services__panel-text">
               <h3>{category.title}</h3>
+              {category.overview && (
+                <p className="services__overview">{category.overview}</p>
+              )}
+              {category.servicesHeading && (
+                <p className="services__services-heading">{category.servicesHeading}</p>
+              )}
               <p className="services__hint services__hint--desktop">Hover over each service to learn more</p>
               <p className="services__hint services__hint--mobile">Tap each service to learn more</p>
             </div>
