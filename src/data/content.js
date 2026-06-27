@@ -247,14 +247,17 @@ export const socialLinks = [
 export const formEndpoint = 'https://formspree.io/f/YOUR_FORM_ID';
 
 export const contactInfo = {
-  address: '123 Engineering Way, Industrial Area, Mumbai, Maharashtra, India - 400001',
+  address: '501, Sai Park Phase 5, near Man Pasand Sweets, Manjari Budruk, Maharashtra 412307',
   phone: '+91 98765 43210',
-  email: 'info@acumenengservices.com',
+  emails: [
+    'kp.acumenengineering@gmail.com',
+    'projects.acumenengineering@gmail.com',
+  ],
   website: 'www.acumenengservices.com',
   hours: 'Mon - Sat (9:00 AM - 6:00 PM)',
   whatsapp: '919876543210',
   mapEmbed:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.665474887887!2d72.8776559!3d19.0759837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin',
+    'https://www.google.com/maps?q=501,+Sai+Park+Phase+5,+near+Man+Pasand+Sweets,+Manjari+Budruk,+Maharashtra+412307&output=embed',
 };
 
 export const navLinks = [

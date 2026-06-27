@@ -34,9 +34,11 @@ export default function Footer() {
             <p>
               <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}>{contactInfo.phone}</a>
             </p>
-            <p>
-              <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
-            </p>
+            {contactInfo.emails.map((email) => (
+              <p key={email}>
+                <a href={`mailto:${email}`}>{email}</a>
+              </p>
+            ))}
           </div>
 
           <div className="footer__social">

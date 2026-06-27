@@ -47,6 +47,16 @@
   word-break: break-word;
 }
 
+.contact__emails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.contact__emails a {
+  display: block;
+}
+
 .contact__detail a:hover {
   color: var(--accent);
 }

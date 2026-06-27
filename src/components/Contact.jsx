@@ -71,7 +71,13 @@ export default function Contact() {
                 <span className="contact__detail-icon">✉</span>
                 <div>
                   <h4>Email</h4>
-                  <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+                  <div className="contact__emails">
+                    {contactInfo.emails.map((email) => (
+                      <a key={email} href={`mailto:${email}`}>
+                        {email}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="contact__detail glass-card">
@@ -186,7 +192,7 @@ export default function Contact() {
               )}
               {status === 'error' && (
                 <p className="contact__status contact__status--error">
-                  Something went wrong. Please email us at {contactInfo.email}
+                  Something went wrong. Please email us at {contactInfo.emails.join(' or ')}
                 </p>
               )}
             </form>
