@@ -40,7 +40,7 @@ export const serviceCategories = [
     icon: '⬡',
     color: '#FF8C00',
     overview:
-      'We offer a wide range of rebar sizes, diameters, and strength levels to suit different construction needs. Our expertise in breaking down rebar elements into precise bending shapes, lengths, steel grades, and diameters ensures efficient material use and minimizes construction errors.',
+      'Delivering precision-driven Rebar Detailing solutions for efficient, cost-effective construction. We provide optimized bar bending schedules with accurate sizes, grades, and lengths to reduce wastage, eliminate errors, and accelerate project execution. Our detailing expertise ensures better coordination, smoother site operations, and improved project profitability.',
     servicesHeading: 'The cost management also covers services such as:',
     services: [
       { name: 'Rebar Concrete Shop Drawings', description: 'Fabrication-ready shop drawings for concrete reinforcement per project standards.' },
@@ -224,17 +224,18 @@ export const projects = [
   },
 ];
 
+export const technologiesSubtitle =
+  'We are expertise in advanced, industry-standard digital engineering platforms like Autocad, ZWCAD, BricsCAD, Rebar Cad, Cads RC, RGS, Revit & Tekla to produce highly accurate, fully coordinated, and fabrication-ready output. Our workflow is designed to ensure precision, consistency, and seamless integration across all project disciplines, enabling efficient design validation and reliable execution in complex engineering environments.';
+
 export const technologies = [
-  { name: 'Tekla Structures', abbr: 'TEKLA' },
-  { name: 'Autodesk Revit', abbr: 'REVIT' },
-  { name: 'AutoCAD', abbr: 'CAD' },
-  { name: 'Navisworks', abbr: 'NAVIS' },
-  { name: 'Point Cloud', abbr: 'PC' },
-  { name: 'Advance Steel', abbr: 'AS' },
-  { name: 'SDS/2', abbr: 'SDS' },
-  { name: 'Bluebeam', abbr: 'BB' },
-  { name: 'BIM 360', abbr: '360' },
-  { name: 'SketchUp', abbr: 'SU' },
+  { name: 'Autocad', abbr: 'ACAD' },
+  { name: 'ZWCAD', abbr: 'ZWCAD' },
+  { name: 'BricsCAD', abbr: 'BRICS' },
+  { name: 'Rebar Cad', abbr: 'RCAD' },
+  { name: 'Cads RC', abbr: 'CADS' },
+  { name: 'RGS', abbr: 'RGS' },
+  { name: 'Revit', abbr: 'REVIT' },
+  { name: 'Tekla', abbr: 'TEKLA' },
 ];
 
 export const socialLinks = [

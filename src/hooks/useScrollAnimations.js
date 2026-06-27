@@ -1,121 +1,145 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+const ANIMATION_SELECTOR = '.fade-up, .fade-in, .slide-left, .slide-right, .stagger-children';
+
+function prepareElement(el) {
+  if (el.classList.contains('stagger-children')) {
+    Array.from(el.children).forEach((child, index) => {
+      child.style.setProperty('--stagger-i', index);
+    });
+  }
+}
+
+function isInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+}
 
 export function useScrollAnimations() {
-  const initialized = useRef(false);
-
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const elements = () => document.querySelectorAll(ANIMATION_SELECTOR);
 
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray('.fade-up').forEach((el) => {
-        gsap.from(el, {
-          y: 60,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        });
+    if (reduceMotion) {
+      elements().forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    document.documentElement.classList.add('js-animations');
+
+    const revealed = new Set();
+
+    const reveal = (el) => {
+      if (revealed.has(el)) return;
+      revealed.add(el);
+      prepareElement(el);
+      el.classList.add('is-visible');
+    };
+
+    const revealInView = () => {
+      elements().forEach((el) => {
+        if (isInViewport(el)) reveal(el);
       });
+    };
 
-      gsap.utils.toArray('.fade-in').forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            toggleActions: 'play none none reverse',
-          },
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            reveal(entry.target);
+            observer.unobserve(entry.target);
+          }
         });
-      });
+      },
+      { rootMargin: '0px 0px -5% 0px', threshold: 0.01 }
+    );
 
-      gsap.utils.toArray('.slide-left').forEach((el) => {
-        gsap.from(el, {
-          x: -80,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      });
+    const observe = (el) => {
+      if (revealed.has(el) || el.classList.contains('is-visible')) {
+        revealed.add(el);
+        return;
+      }
+      prepareElement(el);
+      observer.observe(el);
+    };
 
-      gsap.utils.toArray('.slide-right').forEach((el) => {
-        gsap.from(el, {
-          x: 80,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      });
+    const scan = (root = document) => {
+      const nodes =
+        root instanceof Document
+          ? root.querySelectorAll(ANIMATION_SELECTOR)
+          : root.matches?.(ANIMATION_SELECTOR)
+            ? [root, ...root.querySelectorAll(ANIMATION_SELECTOR)]
+            : [...(root.querySelectorAll?.(ANIMATION_SELECTOR) ?? [])];
 
-      gsap.utils.toArray('.stagger-children').forEach((container) => {
-        const children = container.children;
-        gsap.from(children, {
-          y: 40,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: container,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
+      nodes.forEach(observe);
+      revealInView();
+    };
+
+    scan();
+    requestAnimationFrame(revealInView);
+    window.addEventListener('load', revealInView);
+
+    let scanFrame = 0;
+    const scheduleScan = (root) => {
+      cancelAnimationFrame(scanFrame);
+      scanFrame = requestAnimationFrame(() => scan(root));
+    };
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            scheduleScan(node);
+          }
         });
       });
     });
 
-    return () => ctx.revert();
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      cancelAnimationFrame(scanFrame);
+      window.removeEventListener('load', revealInView);
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
   }, []);
 }
 
 export function useCounterAnimation(end, duration = 2) {
   const ref = useRef(null);
-  const counted = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const trigger = ScrollTrigger.create({
-      trigger: el,
-      start: 'top 85%',
-      onEnter: () => {
-        if (counted.current) return;
-        counted.current = true;
+    let frameId;
+    let startTime;
+    let observer;
 
-        const obj = { val: 0 };
-        gsap.to(obj, {
-          val: end,
-          duration,
-          ease: 'power2.out',
-          onUpdate: () => {
-            el.textContent = Math.round(obj.val).toLocaleString();
-          },
-        });
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      const eased = 1 - (1 - progress) ** 2;
+      el.textContent = Math.round(end * eased).toLocaleString();
+      if (progress < 1) frameId = requestAnimationFrame(animate);
+    };
+
+    observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        frameId = requestAnimationFrame(animate);
       },
-    });
+      { threshold: 0.2 }
+    );
 
-    return () => trigger.kill();
+    observer.observe(el);
+
+    return () => {
+      observer?.disconnect();
+      cancelAnimationFrame(frameId);
+    };
   }, [end, duration]);
 
   return ref;

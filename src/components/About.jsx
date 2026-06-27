@@ -35,10 +35,10 @@ export default function About() {
             </div>
             <div className="about__intro fade-up">
               <p>
-                With over 15 years of experience and a team of 200+ skilled engineers and
-                detailers, we serve clients across 12 countries. Our expertise spans
-                rebar detailing, structural steel, precast, BIM coordination, and
-                comprehensive CAD services for commercial, industrial, and infrastructure projects.
+                Transforming complex engineering challenges into precise, dependable, and
+                value-driven solutions. Our passion for quality, innovation, and technical
+                excellence enables us to empower smarter decisions, streamline execution,
+                deliver exceptional results on every project and build lasting partnerships.
               </p>
             </div>
           </div>

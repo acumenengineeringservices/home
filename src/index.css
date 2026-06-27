@@ -50,7 +50,7 @@ html {
   scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px));
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body {
@@ -58,7 +58,7 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  overflow-x: clip;
+  overflow-x: hidden;
   transition: background 0.4s ease, color 0.4s ease;
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
@@ -71,13 +71,13 @@ body {
   min-height: 100dvh;
   width: 100%;
   max-width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 main {
   width: 100%;
   max-width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 a {
@@ -291,7 +291,6 @@ ul {
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  contain: layout style paint;
   isolation: isolate;
 }
 
@@ -315,4 +314,39 @@ ul {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js-animations .fade-up,
+  html.js-animations .fade-in,
+  html.js-animations .slide-left,
+  html.js-animations .slide-right,
+  html.js-animations .stagger-children > * {
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.js-animations .fade-up:not(.is-visible) {
+    transform: translateY(36px);
+  }
+
+  html.js-animations .slide-left:not(.is-visible) {
+    transform: translateX(-36px);
+  }
+
+  html.js-animations .slide-right:not(.is-visible) {
+    transform: translateX(36px);
+  }
+
+  html.js-animations .stagger-children:not(.is-visible) > * {
+    transform: translateY(24px);
+    transition-delay: calc(var(--stagger-i, 0) * 0.1s);
+  }
+
+  html.js-animations .fade-up.is-visible,
+  html.js-animations .fade-in.is-visible,
+  html.js-animations .slide-left.is-visible,
+  html.js-animations .slide-right.is-visible,
+  html.js-animations .stagger-children.is-visible > * {
+    transform: none;
+  }
 }

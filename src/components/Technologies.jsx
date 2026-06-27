@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { technologies } from '../data/content';
+import { technologies, technologiesSubtitle } from '../data/content';
 import './Technologies.css';
 
 export default function Technologies() {
@@ -41,10 +41,7 @@ export default function Technologies() {
         <div className="section-header fade-up">
           <span className="section-tag">Technologies</span>
           <h2 className="section-title">Tools & Software Expertise</h2>
-          <p className="section-subtitle">
-            We leverage industry-leading software platforms to deliver accurate,
-            coordinated, and fabrication-ready engineering documentation.
-          </p>
+          <p className="section-subtitle">{technologiesSubtitle}</p>
         </div>
       </div>
 

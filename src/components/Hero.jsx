@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
 import LazyScene3D from './LazyScene3D';
 import BrandLogo from './BrandLogo';
 import { stats } from '../data/content';
@@ -10,16 +9,7 @@ export default function Hero() {
   const heroRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.hero__brand-logo', { y: 30, opacity: 0, duration: 0.8, delay: 0.2 });
-      gsap.from('.hero__title', { y: 50, opacity: 0, duration: 1, delay: 0.4 });
-      gsap.from('.hero__subtitle', { y: 40, opacity: 0, duration: 0.8, delay: 0.6 });
-      gsap.from('.hero__actions', { y: 30, opacity: 0, duration: 0.8, delay: 0.8 });
-      gsap.from('.hero__visual', { x: 60, opacity: 0, duration: 1.2, delay: 0.5, ease: 'power3.out' });
-      gsap.from('.hero__scroll', { opacity: 0, duration: 1, delay: 1.5 });
-    }, heroRef);
-
-    return () => ctx.revert();
+    heroRef.current?.classList.add('hero--ready');
   }, []);
 
   return (
